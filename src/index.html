@@ -13,75 +13,77 @@
 
     <section id="start" class="hidden">
         <button type="button" id="startButton"
-            class="text-white bg-blue-700 shadow-2xl active:shadow-sm font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center">Start Tracking</button>
+            class="text-white bg-blue-700 active:opacity-75 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center">Start Tracking</button>
     </section>
 
-    <section id="asking" class="hidden">
-        <form class="max-w-sm mx-auto ring-black shadow-2xl p-6 rounded-lg">
+    <section id="asking" class="">
+        <div class="max-w-sm mx-auto ring-black shadow-2xl p-6 rounded-lg">
             <div class="mb-5">
                 <label for="password" class="block mb-2 text-sm font-medium text-white dark:text-white">Enter the
                     amount: </label>
                 <input type="number" id="amount"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    required />
+                     />
             </div>
-            <button type="submit" id="startMain"
-                class="text-white bg-blue-700 font-medium rounded-lg text-sm w-full shadow-2xl active:shadow-sm px-5 py-2.5 text-center">Start</button>
-        </form>
+            <button type="button" id="startMain"
+                class="text-white bg-blue-700 font-medium rounded-lg text-sm w-full active:opacity-75 px-5 py-2.5 text-center">Start</button>
+        </div>
     </section>
 
-    <div class="container w-full max-w-lg mx-auto bg-white rounded-lg shadow-xl p-4 space-y-6">
-        <h1 class="text-2xl font-semibold text-center text-gray-800">Expense Tracker</h1>
-
-        <!-- Initial Amount and Remaining Amount -->
-        <div class="grid grid-cols-2 gap-2 text-center text-sm">
-            <div>
-                <p class="text-gray-600">Initial Amount</p>
-                <p class="font-bold text-gray-800 ring-2 ring-blue-500 rounded-lg py-2">Rs. <span
-                        id="initialAmount">0</span></p>
+    <section  id="main" class="hidden">
+        <div class="container w-full max-w-lg mx-auto bg-white rounded-lg shadow-xl p-4 space-y-6">
+            <h1 class="text-2xl font-semibold text-center text-gray-800">Expense Tracker</h1>
+    
+            <!-- Initial Amount and Remaining Amount -->
+            <div class="grid grid-cols-2 gap-2 text-center text-sm">
+                <div>
+                    <p class="text-gray-600">Initial Amount</p>
+                    <p class="font-bold text-gray-800 ring-2 ring-blue-500 rounded-lg py-2">Rs. <span
+                            id="initialAmount">0</span></p>
+                </div>
+                <div>
+                    <p class="text-gray-600">Remaining Amount</p>
+                    <p class="font-bold text-gray-800 ring-2 ring-blue-500 rounded-lg py-2">Rs. <span
+                            id="remainingAmount">0</span></p>
+                </div>
             </div>
-            <div>
-                <p class="text-gray-600">Remaining Amount</p>
-                <p class="font-bold text-gray-800 ring-2 ring-blue-500 rounded-lg py-2">Rs. <span
-                        id="remainingAmount">0</span></p>
+    
+            <hr class="my-4">
+    
+            <!-- Expense Input Form -->
+            <div id="expenseInput" class="grid grid-cols-12 gap-4">
+                <input class="col-span-4 p-2 rounded-lg border border-gray-300" type="number" id="cost" placeholder="Cost">
+                <input class="col-span-8 p-2 rounded-lg border border-gray-300" type="text" id="reason"
+                    placeholder="Reason">
+    
+                <div class="col-span-5 pt-4 text-center">
+                    <label for="isOutgoing" class="text-gray-700">Outgoing</label>
+                    <input type="checkbox" id="isOutgoing" class="ml-2">
+                </div>
+    
+                <button type="button" id="addExpense"
+                    class="col-span-7 p-2 bg-blue-600 text-white font-semibold rounded-lg active:opacity-75">
+                    Add Expense
+                </button>
             </div>
-        </div>
-
-        <hr class="my-4">
-
-        <!-- Expense Input Form -->
-        <div id="expenseInput" class="grid grid-cols-12 gap-4">
-            <input class="col-span-4 p-2 rounded-lg border border-gray-300" type="number" id="cost" placeholder="Cost">
-            <input class="col-span-8 p-2 rounded-lg border border-gray-300" type="text" id="reason"
-                placeholder="Reason">
-
-            <div class="col-span-5 pt-4 text-center">
-                <label for="isOutgoing" class="text-gray-700">Outgoing</label>
-                <input type="checkbox" id="isOutgoing" class="ml-2">
-            </div>
-
-            <button type="button" id="addExpense"
-                class="col-span-7 p-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
-                Add Expense
+    
+            <hr class="my-4">
+    
+            <!-- Expense History -->
+            <p class="text-center text-lg font-semibold text-gray-800">Expenses History</p>
+    
+            <ul id="expensesList" class="space-y-4 max-h-60 overflow-y-auto pb-4 px-2">
+                <!-- Dynamic Expense List Items -->
+                No Expense History
+            </ul>
+    
+            <!-- Clear Button -->
+            <button type="button" id="clear"
+                class="w-full p-3 bg-red-600 text-white font-semibold rounded-lg active:opacity-75">
+                Clear All Expenses
             </button>
         </div>
-
-        <hr class="my-4">
-
-        <!-- Expense History -->
-        <p class="text-center text-lg font-semibold text-gray-800">Expenses History</p>
-
-        <ul id="expensesList" class="space-y-4 max-h-60 overflow-y-auto pb-4 px-2">
-            <!-- Dynamic Expense List Items -->
-            No Expense History
-        </ul>
-
-        <!-- Clear Button -->
-        <button type="button" id="clear"
-            class="w-full p-3 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
-            Clear All Expenses
-        </button>
-    </div>
+    </section>
 
     <script src="script.js"></script>
 
