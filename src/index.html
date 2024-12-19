@@ -13,16 +13,16 @@
 
     <section id="start" class="hidden">
         <button type="button" id="startButton"
-            class="text-white bg-blue-700 active:opacity-75 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center">Start Tracking</button>
+            class="text-white bg-blue-700 shadow-2xl active:opacity-75 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center">Start Tracking</button>
     </section>
 
-    <section id="asking" class="">
-        <div class="max-w-sm mx-auto ring-black shadow-2xl p-6 rounded-lg">
+    <section id="asking" class="hidden">
+        <div class="max-w-sm mx-auto ring-black shadow-2xl p-6 rounded-lg bg-white">
             <div class="mb-5">
-                <label for="password" class="block mb-2 text-sm font-medium text-white dark:text-white">Enter the
+                <label for="password" class="block mb-2 text-sm font-medium text-black">Enter the
                     amount: </label>
-                <input type="number" id="amount"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                <input type="number" id="amount" 
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                      />
             </div>
             <button type="button" id="startMain"
@@ -30,7 +30,7 @@
         </div>
     </section>
 
-    <section  id="main" class="hidden">
+    <section  id="main" class="">
         <div class="container w-full max-w-lg mx-auto bg-white rounded-lg shadow-xl p-4 space-y-6">
             <h1 class="text-2xl font-semibold text-center text-gray-800">Expense Tracker</h1>
     
