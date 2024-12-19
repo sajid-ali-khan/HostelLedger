@@ -11,7 +11,7 @@
 
 <body class="bg-gradient-to-br from-blue-500 to-indigo-600 min-h-screen flex flex-col items-center justify-center p-5">
 
-    <section id="start" class="hidden">
+    <section id="start" class="">
         <button type="button" id="startButton"
             class="text-white bg-blue-700 shadow-2xl active:opacity-75 font-medium rounded-lg text-sm w-full  px-5 py-2.5 text-center">Start Tracking</button>
     </section>
@@ -30,7 +30,7 @@
         </div>
     </section>
 
-    <section  id="main" class="">
+    <section  id="main" class="hidden">
         <div class="container w-full max-w-lg mx-auto bg-white rounded-lg shadow-xl p-4 space-y-6">
             <h1 class="text-2xl font-semibold text-center text-gray-800">Expense Tracker</h1>
     
@@ -52,13 +52,14 @@
     
             <!-- Expense Input Form -->
             <div id="expenseInput" class="grid grid-cols-12 gap-4">
-                <input class="col-span-4 p-2 rounded-lg border border-gray-300" type="number" id="cost" placeholder="Cost">
                 <input class="col-span-8 p-2 rounded-lg border border-gray-300" type="text" id="reason"
                     placeholder="Reason">
+                <input class="col-span-4 p-2 rounded-lg border border-gray-300" type="number" id="cost" placeholder="Cost">
+                
     
                 <div class="col-span-5 pt-4 text-center">
-                    <label for="isOutgoing" class="text-gray-700">Outgoing</label>
-                    <input type="checkbox" id="isOutgoing" class="ml-2">
+                    <label for="isIncoming" class="text-gray-700">Incoming</label>
+                    <input type="checkbox" id="isIncoming" class="ml-2">
                 </div>
     
                 <button type="button" id="addExpense"
@@ -70,7 +71,7 @@
             <hr class="my-4">
     
             <!-- Expense History -->
-            <p class="text-center text-lg font-semibold text-gray-800">Expenses History</p>
+            <p class="text-center text-lg font-semibold underline text-gray-800">Expenses History</p>
     
             <ul id="expensesList" class="space-y-4 max-h-60 overflow-y-auto pb-4 px-2">
                 <!-- Dynamic Expense List Items -->

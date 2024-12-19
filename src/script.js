@@ -14,24 +14,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //inputs
     const addExpense = document.getElementById('addExpense')
-    const isOutGoingCheckbox = document.getElementById('isOutgoing')
+    const isIncomingCheckbox = document.getElementById('isIncoming')
     const amountInput = document.getElementById('amount')
     const costInput = document.getElementById('cost')
     const reasonInput = document.getElementById('reason')
 
+    const initAmountDisplay = document.getElementById('initialAmount')
+    const remAmountDisplay = document.getElementById('remainingAmount')
+
 
     let expenses = JSON.parse(localStorage.getItem('expenses')) || []
     //placeholders
-    let initAmount = parseFloat(JSON.parse(localStorage.getItem('initItem'))) || 0.0
-    let remAmount = parseFloat(JSON.parse(localStorage.getItem('remAmount'))) || 0
+    let initAmount = parseFloat(JSON.parse(localStorage.getItem('initAmount'))) || 0.0
+    let remAmount = parseFloat(JSON.parse(localStorage.getItem('remAmount'))) || 0.0
 
-    if (initAmount !== 0 || remAmount !== 0) {
+    if (initAmount !== 0 || remAmount !== 0|| expenses.length > 0){
         askingSection.classList.add('hidden')
         startSection.classList.add('hidden')
         mainSection.classList.remove('hidden')
-
-        renderExpenses()
     }
+
+    render();
 
     startBtn.addEventListener('click', () => {
         startSection.classList.add('hidden')
@@ -44,64 +47,105 @@ document.addEventListener('DOMContentLoaded', () => {
         if (amount === 0) {
             return;
         }
+
+        initAmount = parseFloat(amountInput.value.trim())
+        remAmount = initAmount
+        saveState();
         askingSection.classList.add('hidden')
         startSection.classList.add('hidden')
         mainSection.classList.remove('hidden')
+
+        amountInput.value = "";
+        render();
     })
 
+    let clickTimeout;
+
     clearButton.addEventListener('click', () => {
-        remAmount = 0;
-        initAmount = 0;
-        expenses = []
-        saveState();
-        askingSection.classList.add('hidden')
-        mainSection.classList.add('hidden')
-        startSection.classList.remove('hidden')
+        clearTimeout(clickTimeout)
+        clickTimeout = setTimeout(() => {
+            remAmount = 0;
+            initAmount = 0;
+            expenses = []
+            saveState();
+            askingSection.classList.add('hidden')
+            mainSection.classList.add('hidden')
+            startSection.classList.remove('hidden')
+        }, 300)
+    })
+
+    clearButton.addEventListener('dblclick', () => {
+        clearTimeout(clickTimeout)
+        localStorage.clear();
+        render();
     })
 
     addExpense.addEventListener('click', () => {
-        const cost = costInput.value.trim()
+        let cost = parseFloat(costInput.value.trim())
         const reason = reasonInput.value.trim()
-        const isOutgoing = isOutGoingCheckbox.checked
+        const isIncoming = isIncomingCheckbox.checked
 
         if (!cost || !reason || isNaN(cost)) {
             return;
         }
 
+        if (!isIncoming){
+            cost = -1 * cost
+        }
+
         const today = new Date();
 
-        const date = today.toLocaleDateString('en-GB'); 
+        const date = today.toLocaleDateString('en-GB');
 
         const expenseObject = {
             time: date,
             cost,
             reason,
-            isOutgoing
+            isIncoming
         }
 
-        console.log(expenseObject)
+        console.log(typeof remAmount);
+        
+
+        remAmount += cost;
+
+        // console.log(expenseObject)
         expenses.push(expenseObject)
-        renderExpenses()
+
+        saveState()
+        render()
+
+        costInput.value = ""
+        reasonInput.value = ""
+        isIncomingCheckbox.checked = false
     })
 
     function saveState() {
-        localStorage.setItem('initAMount', JSON.stringify(initAmount))
+        localStorage.setItem('initAmount', JSON.stringify(initAmount))
         localStorage.setItem('remAmount', JSON.stringify(remAmount))
         localStorage.setItem('expenses', JSON.stringify(expenses))
     }
 
-    function renderExpenses() {
+    function render() {
+        //render amounts
+        initAmountDisplay.textContent = initAmount;
+        remAmountDisplay.textContent = remAmount;
+
+        //render the expenses list
         expenseList.innerHTML = "";
+
+        if (expenses.length === 0){
+            expenseList.innerHTML = "No expenses tracked yet.";
+        }
         //create a li for each expense
-        for(let i = expenses.length - 1; i >= 0; i--){
+        for (let i = expenses.length - 1; i >= 0; i--) {
             const expense = expenses[i]
 
             const li = createExpenseElement(expense)
 
-            console.log(li)
+            // console.log(li)
             expenseList.appendChild(li)
         }
-        saveState();
     }
 
     function createExpenseElement(exp) {
@@ -114,11 +158,17 @@ document.addEventListener('DOMContentLoaded', () => {
         timeDiv.textContent = exp.time;
         reasonDiv.textContent = exp.reason;
         exp.cost = parseFloat(exp.cost)
-        costDiv.textContent = (exp.isOutgoing) ? -exp.cost : exp.cost
+        costDiv.textContent = exp.cost
 
         li.appendChild(timeDiv)
         li.appendChild(reasonDiv)
         li.appendChild(costDiv)
+
+        if (exp.isIncoming){
+            li.classList.add("incoming-money")
+        }else{
+            li.classList.add("outgoing-money")
+        }
 
         return li
     }
