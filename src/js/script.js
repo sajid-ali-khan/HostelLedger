@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', () => {
     //main buttons
     const startBtn = document.getElementById('startButton')
@@ -89,12 +90,11 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (!isIncoming){
-            cost = -1 * cost
+        if (!isIncoming) {
+            cost = -1 * cost;
         }
 
         const today = new Date();
-
         const date = today.toLocaleDateString('en-GB');
 
         const expenseObject = {
@@ -102,14 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
             cost,
             reason,
             isIncoming
-        }
-
-        console.log(typeof remAmount);
+        };
         
-
         remAmount += cost;
 
-        // console.log(expenseObject)
         expenses.push(expenseObject)
 
         saveState()
@@ -127,23 +123,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function render() {
-        //render amounts
         initAmountDisplay.textContent = initAmount;
         remAmountDisplay.textContent = remAmount;
 
-        //render the expenses list
         expenseList.innerHTML = "";
 
         if (expenses.length === 0){
             expenseList.innerHTML = "No expenses tracked yet.";
         }
-        //create a li for each expense
         for (let i = expenses.length - 1; i >= 0; i--) {
             const expense = expenses[i]
 
             const li = createExpenseElement(expense)
 
-            // console.log(li)
             expenseList.appendChild(li)
         }
     }
