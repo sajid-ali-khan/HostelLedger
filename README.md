@@ -5,7 +5,7 @@ An expense tracker app built for students—especially those living in hostels�
 
 ## 🚀 Try it
 
-> *(You can add a demo link or APK download link here if available)*
+Wanna try HostelLedger?[Click to try.](https://sajid-ali-khan.github.io/HostelLedger/)
 
 
 ## 📸 Screenshots
